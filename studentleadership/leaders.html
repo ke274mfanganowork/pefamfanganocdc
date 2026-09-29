@@ -234,39 +234,180 @@ body.cursor-hover .cursor-ring{width:60px;height:60px;border-color:var(--amber-4
 .b-tag{padding:6px 12px;border-radius:var(--r-full);background:var(--bg-muted);border:1px solid var(--border-hairline);font-size:.72rem;font-weight:600;color:var(--text-secondary);letter-spacing:var(--track-wide);transition:all .2s}
 .b-tag:hover{border-color:var(--blue-400);color:var(--text-primary);transform:translateY(-2px)}
 .b-dark .b-tag{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.85)}
-/* ============ LEADER CARD ============ */
-.leader-card{padding:0;display:flex;flex-direction:column}
-.leader-media{position:relative;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(135deg,var(--blue-800),var(--blue-950))}
-.leader-card.compact .leader-media{aspect-ratio:1/1}
-.leader-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-expo);will-change:transform}
-.leader-card:hover .leader-media img{transform:scale(1.08)}
-.leader-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(2,8,20,.75) 100%);z-index:1;pointer-events:none;transition:opacity .5s}
-.leader-card:hover .leader-media::after{opacity:.6}
-.leader-rank{position:absolute;top:1rem;left:1rem;padding:5px 11px;background:rgba(255,255,255,.15);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);border-radius:var(--r-full);font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:var(--track-wide);color:#fff;z-index:2;box-shadow:var(--inset-glass)}
-.leader-rank.flagship{background:linear-gradient(135deg,var(--amber-400),var(--amber-500));color:var(--blue-950);border-color:rgba(245,158,11,.4)}
-.leader-role-badge{position:absolute;top:1rem;right:1rem;padding:6px 12px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);color:var(--blue-900);border-radius:var(--r-full);font-size:.62rem;font-weight:700;letter-spacing:var(--track-wider);text-transform:uppercase;z-index:2;box-shadow:var(--shadow-md);max-width:140px;text-align:center;line-height:1.3;white-space:nowrap}
-.leader-role-badge.flagship{background:linear-gradient(135deg,var(--amber-400),var(--amber-500));color:var(--blue-950)}
-.leader-overlay{position:absolute;inset:auto 0 0 0;padding:1.25rem 1.25rem 1.2rem;z-index:2;color:#fff}
-.leader-name{font-family:var(--font-display);font-size:clamp(1.05rem,1.8vw,1.3rem);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin-bottom:4px;text-shadow:0 2px 12px rgba(0,0,0,.45)}
-.leader-role{font-family:var(--font-mono);font-size:.68rem;font-weight:500;letter-spacing:var(--track-wide);color:var(--amber-300);text-transform:uppercase}
-.leader-card-body{padding:1.5rem 1.5rem 1.75rem;flex:1;display:flex;flex-direction:column;gap:.7rem}
-.leader-card .b-title{font-size:clamp(1rem,1.4vw,1.15rem);margin-bottom:0}
-.leader-card .b-desc{font-size:.86rem;line-height:1.7;color:var(--text-secondary)}
-.leader-card.b-dark .b-desc{color:rgba(255,255,255,.75)}
-.leader-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border-hairline)}
-.b-dark .leader-meta{border-top-color:rgba(255,255,255,.14)}
-.leader-meta span{font-family:var(--font-mono);font-size:.65rem;font-weight:500;letter-spacing:var(--track-wide);color:var(--text-tertiary);text-transform:uppercase}
-.b-dark .leader-meta span{color:rgba(255,255,255,.55)}
-.leader-meta .dot{color:var(--amber-500);margin:0 .1rem}
-/* featured portrait layout */
-.leader-portrait-wide{display:grid;grid-template-columns:42% 1fr}
-.leader-portrait-wide .leader-media{aspect-ratio:3/4.5;height:100%}
-.leader-portrait-wide .leader-card-body{padding:clamp(1.6rem,2.6vw,2.4rem);gap:.9rem;justify-content:center}
-.leader-portrait-wide .b-title{font-size:clamp(1.4rem,2.2vw,1.75rem)}
-.leader-portrait-wide .b-desc{font-size:.95rem;line-height:1.8}
-.leader-portrait-wide .quote{font-family:var(--font-display);font-style:italic;color:var(--text-primary);line-height:1.5;margin:.5rem 0 1rem;letter-spacing:-.01em;font-size:clamp(.95rem,1.3vw,1.05rem)}
-.b-dark .leader-portrait-wide .quote{color:rgba(255,255,255,.85)}
-.leader-portrait-wide .quote::before{content:'"';font-size:2.5rem;color:var(--amber-500);line-height:0;vertical-align:-.4em;margin-right:4px;font-weight:500;font-style:normal}
+
+/* ============ ELITE EDITORIAL IMAGE SECTION ============ */
+.lm-section {
+  --lm-bg: #F4F1EA;
+  --lm-ink: #1A1815;
+  --lm-ink-soft: rgba(26, 24, 21, 0.65);
+  --lm-ink-faint: rgba(26, 24, 21, 0.12);
+  --lm-accent: #8C6E4A;
+  --lm-accent-soft: rgba(140, 110, 74, 0.8);
+  --lm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --lm-serif: 'Fraunces', Georgia, serif;
+  --lm-sans: 'Inter', -apple-system, sans-serif;
+  background: var(--lm-bg);
+  color: var(--lm-ink);
+  padding: clamp(80px, 10vw, 140px) 0;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+[data-theme="dark"] .lm-section {
+  --lm-bg: #0B0C0E;
+  --lm-ink: #EBE7DF;
+  --lm-ink-soft: rgba(235, 231, 223, 0.65);
+  --lm-ink-faint: rgba(235, 231, 223, 0.12);
+  --lm-accent: #D4AF7A;
+  --lm-accent-soft: rgba(212, 175, 122, 0.8);
+}
+.lm-shell { width: min(1140px, 90vw); margin: 0 auto; position: relative; }
+.lm-head { margin-bottom: clamp(48px, 6vw, 80px); display: grid; grid-template-columns: 1fr; gap: 24px; }
+.lm-kicker { font-family: var(--lm-sans); font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--lm-accent); display: flex; align-items: center; gap: 16px; margin: 0; }
+.lm-kicker::before { content: ""; width: 40px; height: 1px; background: var(--lm-accent); }
+.lm-titlerow { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.lm-title { font-family: var(--lm-serif); font-size: clamp(32px, 4.5vw, 56px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 16ch; }
+.lm-title em { font-style: italic; font-weight: 300; color: var(--lm-accent); }
+.lm-index { font-family: var(--lm-serif); font-style: italic; font-size: 14px; color: var(--lm-ink-soft); margin: 0; }
+.lm-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--lm-ink-faint); font-family: var(--lm-sans); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lm-ink-soft); }
+.lm-meta > span:not(:first-child)::before { content: "•"; margin-right: 24px; color: var(--lm-accent); font-size: 14px; vertical-align: middle; }
+.lm-meta a { margin-left: auto; color: var(--lm-ink); text-decoration: none; border-bottom: 1px solid var(--lm-accent-soft); padding-bottom: 2px; transition: color 0.4s var(--lm-ease), border-color 0.4s var(--lm-ease); }
+.lm-meta a:hover { color: var(--lm-accent); }
+.lm-meta a:focus-visible { outline: 2px solid var(--lm-accent); outline-offset: 4px; border-radius: 2px; }
+.lm-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: auto auto; gap: clamp(20px, 3vw, 40px); align-items: start; }
+.lm-feature { grid-column: 1 / 8; grid-row: 1 / 3; position: relative; }
+.lm-side { grid-column: 8 / 13; grid-row: 1 / 2; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 24px); align-items: start; }
+.lm-side .lm-frame:first-child { grid-column: 1 / 2; margin-top: 40px; }
+.lm-side .lm-frame:last-child { grid-column: 2 / 3; margin-top: 0; }
+.lm-wide { grid-column: 8 / 13; grid-row: 2 / 3; margin-top: clamp(20px, 3vw, 40px); }
+.lm-media { position: relative; overflow: hidden; background: #1A1815; aspect-ratio: var(--ar, 4/3); border-radius: 2px; box-shadow: 0 24px 48px -24px rgba(0,0,0,0.15), 0 8px 16px -8px rgba(0,0,0,0.08); }
+[data-theme="dark"] .lm-media { box-shadow: 0 24px 48px -24px rgba(0,0,0,0.6), 0 8px 16px -8px rgba(0,0,0,0.4); }
+.lm-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--op, 50% 50%); transform: scale(1.001); transition: transform 1.2s var(--lm-ease), filter 0.8s var(--lm-ease); filter: grayscale(0.05) contrast(1.02); }
+.lm-tint { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.15) 100%); opacity: 0.6; transition: opacity 0.8s var(--lm-ease); }
+.lm-frame:hover .lm-media img { transform: scale(1.03); filter: grayscale(0) contrast(1.05); }
+.lm-frame:hover .lm-tint { opacity: 0.3; }
+.lm-feature .lm-media { aspect-ratio: 4/5; }
+@keyframes lm-breathe { 0% { transform: scale(1); } 100% { transform: scale(1.02); } }
+.lm-feature .lm-media img { animation: lm-breathe 20s var(--lm-ease) infinite alternate; }
+.lm-wide .lm-media { aspect-ratio: 16/9; }
+.lm-side .lm-frame:first-child .lm-media { aspect-ratio: 3/4; }
+.lm-side .lm-frame:last-child .lm-media { aspect-ratio: 1/1; }
+.lm-cap { display: flex; align-items: baseline; gap: 12px; margin-top: 16px; }
+.lm-num { font-family: var(--lm-serif); font-style: italic; font-size: 14px; color: var(--lm-accent); flex-shrink: 0; }
+.lm-cap-text { font-family: var(--lm-sans); font-size: 12px; font-weight: 500; letter-spacing: 0.05em; line-height: 1.5; color: var(--lm-ink-soft); }
+.lm-cap--overlay { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 32px 28px; margin: 0; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.65) 100%); color: #F4F1EA; flex-direction: column; align-items: flex-start; gap: 8px; }
+.lm-cap--overlay .lm-num { color: var(--lm-accent); font-size: 16px; }
+.lm-cap--overlay .lm-cap-text { font-family: var(--lm-serif); font-style: italic; font-weight: 300; font-size: clamp(16px, 1.5vw, 20px); color: #F4F1EA; max-width: 36ch; letter-spacing: 0; }
+.lm-cap--wide { align-items: flex-end; text-align: right; }
+.lm-cap--wide .lm-cap-text { text-align: right; }
+.lm-section[data-lm="on"] .lm-reveal { opacity: 0; transform: translateY(32px); transition: opacity 1s var(--lm-ease), transform 1s var(--lm-ease); transition-delay: var(--d, 0ms); }
+.lm-section[data-lm="on"] .lm-reveal.lm-in { opacity: 1; transform: translateY(0); }
+@media (max-width: 1024px) {
+  .lm-grid { grid-template-columns: repeat(6, 1fr); grid-template-rows: auto; }
+  .lm-feature { grid-column: 1 / -1; grid-row: auto; }
+  .lm-side { grid-column: 1 / -1; grid-row: auto; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .lm-side .lm-frame:first-child { margin-top: 0; }
+  .lm-wide { grid-column: 1 / -1; grid-row: auto; margin-top: 20px; }
+  .lm-meta { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .lm-meta > span:not(:first-child)::before { display: none; }
+  .lm-meta a { margin-left: 0; margin-top: 8px; }
+}
+@media (max-width: 640px) {
+  .lm-side { grid-template-columns: 1fr; gap: 32px; }
+  .lm-side .lm-frame:first-child .lm-media, .lm-side .lm-frame:last-child .lm-media { aspect-ratio: 4/3; }
+  .lm-cap--overlay { padding: 24px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lm-section *, .lm-section *::before, .lm-section *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .lm-section[data-lm="on"] .lm-reveal { opacity: 1; transform: none; }
+  .lm-feature .lm-media img { animation: none; }
+  .lm-frame:hover .lm-media img { transform: none; }
+}
+
+/* ============ LEADERSHIP TREE ============ */
+.ltree-wrap{position:relative}
+.ltree-hint{display:flex;align-items:center;justify-content:center;gap:.65rem;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-tertiary);margin:0 0 clamp(2rem,5vw,3.5rem)}
+.ltree-hint i{color:var(--amber-500);animation:leafSway 3.2s ease-in-out infinite;display:inline-block}
+@keyframes leafSway{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(12deg)}}
+.ltree{--ltree-line:rgba(217,119,6,.38);position:relative;padding:clamp(1rem,2vw,2rem) 0 0;overflow-x:auto;overflow-y:visible;scrollbar-width:none}
+.ltree::-webkit-scrollbar{display:none}
+.ltree::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:560px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.09),transparent 70%);pointer-events:none;z-index:0}
+[data-theme="dark"] .ltree{--ltree-line:rgba(251,191,36,.32)}
+.ltree-branch{display:flex;flex-direction:column;align-items:center;position:relative;padding:44px 12px 0;z-index:1}
+.ltree>.ltree-branch{padding:0}
+.ltree-kids{display:flex;justify-content:center;position:relative;padding-top:44px}
+.ltree-kids::before{content:'';position:absolute;top:0;left:50%;border-left:2px solid var(--ltree-line);width:0;height:44px}
+.ltree-kids>.ltree-branch::before,.ltree-kids>.ltree-branch::after{content:'';position:absolute;top:0;right:50%;border-top:2px solid var(--ltree-line);width:50%;height:44px}
+.ltree-kids>.ltree-branch::after{right:auto;left:50%;border-left:2px solid var(--ltree-line)}
+.ltree-kids>.ltree-branch:only-child::before,.ltree-kids>.ltree-branch:only-child::after{display:none}
+.ltree-kids>.ltree-branch:only-child{padding-top:0}
+.ltree-kids>.ltree-branch:first-child::before,.ltree-kids>.ltree-branch:last-child::after{border:0 none}
+.ltree-kids>.ltree-branch:last-child::before{border-right:2px solid var(--ltree-line);border-radius:0 22px 0 0}
+.ltree-kids>.ltree-branch:first-child::after{border-radius:22px 0 0 0}
+.ltree-node{--bc:#F59E0B;--bg:rgba(245,158,11,.12);--tilt:0deg;position:relative;cursor:pointer;outline:none;border-radius:18px;padding:6px;transition:transform .4s var(--ease-expo)}
+.ltree-node:hover,.ltree-node:focus,.ltree-node:focus-within{z-index:80}
+.ltree-node:focus-visible{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--bc)}
+.ltree-node[data-b="gold"]{--bc:#F59E0B;--bg:rgba(245,158,11,.13);--tilt:-2deg}
+.ltree-node[data-b="sky"]{--bc:#38BDF8;--bg:rgba(56,189,248,.13);--tilt:2deg}
+.ltree-node[data-b="royal"]{--bc:#2563EB;--bg:rgba(37,99,235,.11);--tilt:-1.5deg}
+.ltree-node[data-b="coral"]{--bc:#F43F5E;--bg:rgba(244,63,94,.11);--tilt:2.5deg}
+.ltree-node[data-b="emerald"]{--bc:#10B981;--bg:rgba(16,185,129,.13);--tilt:-2.5deg}
+.ltree-node[data-b="orange"]{--bc:#F97316;--bg:rgba(249,115,22,.13);--tilt:1.5deg}
+.ltree-node[data-b="teal"]{--bc:#14B8A6;--bg:rgba(20,184,166,.13);--tilt:-1.5deg}
+.ltree-node[data-b="amber"]{--bc:#FBBF24;--bg:rgba(251,191,36,.15);--tilt:2deg}
+.ltree-node[data-b="cyan"]{--bc:#06B6D4;--bg:rgba(6,182,212,.13);--tilt:-2deg}
+.ltree-node[data-b="violet"]{--bc:#8B5CF6;--bg:rgba(139,92,246,.13);--tilt:1.5deg}
+.ltree-node[data-b="lime"]{--bc:#84CC16;--bg:rgba(132,204,22,.15);--tilt:-2.5deg}
+.ltree-node[data-b="rose"]{--bc:#EC4899;--bg:rgba(236,72,153,.13);--tilt:2.5deg}
+.ltree-head{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:96px}
+.ltree-photo{width:96px;height:96px;border-radius:50%;border:3px solid var(--bc);padding:3px;background:var(--bg);transform:rotate(var(--tilt));transition:transform .5s var(--ease-spring),box-shadow .4s var(--ease-expo);overflow:hidden;margin-bottom:12px;position:relative}
+.ltree-photo img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.ltree-node:hover .ltree-photo,.ltree-node:focus .ltree-photo{transform:rotate(0deg) scale(1.1);box-shadow:0 16px 36px -10px var(--bc)}
+.ltree-name{font-family:var(--font-display);font-size:1rem;font-weight:500;letter-spacing:-.01em;line-height:1.2;color:var(--text-primary);transition:color .3s}
+.ltree-role{font-family:var(--font-mono);font-size:.6rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bc);margin-top:5px;white-space:nowrap}
+.ltree-node.is-root .ltree-photo{width:128px;height:128px;border-width:4px}
+.ltree-node.is-root .ltree-name{font-size:1.3rem}
+.ltree-node.is-root .ltree-role{font-size:.66rem}
+.ltree-node.is-root .ltree-head{min-width:130px}
+.ltree-crown{position:absolute;top:-16px;left:50%;transform:translateX(-50%);color:var(--amber-400);font-size:1.1rem;z-index:2;text-shadow:0 2px 8px rgba(245,158,11,.5)}
+.ltree-kids .ltree-kids .ltree-node .ltree-photo{width:84px;height:84px}
+.ltree-kids .ltree-kids .ltree-node .ltree-head{min-width:88px}
+.ltree-kids .ltree-kids .ltree-node .ltree-name{font-size:.92rem}
+.ltree-detail{position:absolute;top:100%;left:50%;margin-left:-165px;width:330px;margin-top:14px;text-align:left;z-index:90;pointer-events:none;background:var(--bg-surface);border:1px solid var(--border-subtle);border-top:3px solid var(--bc);border-radius:16px;padding:18px 20px 20px;box-shadow:var(--shadow-2xl);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s var(--ease-expo),transform .35s var(--ease-expo),visibility .35s}
+.ltree-node[data-pos~="l"] .ltree-detail{left:0;margin-left:0}
+.ltree-node[data-pos~="r"] .ltree-detail{left:auto;right:0;margin-left:0}
+.ltree-node[data-pos~="up"] .ltree-detail{top:auto;bottom:100%;margin-top:0;margin-bottom:14px;transform:translateY(-12px)}
+.ltree-node:hover .ltree-detail,.ltree-node:focus .ltree-detail,.ltree-node:focus-within .ltree-detail{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+.ltree-quote{font-family:var(--font-display);font-style:italic;font-size:.98rem;line-height:1.5;color:var(--text-primary);margin-bottom:10px}
+.ltree-quote::before{content:'\201C';color:var(--bc);font-size:1.7rem;line-height:0;vertical-align:-.4em;margin-right:3px;font-weight:500}
+.ltree-desc{font-size:.85rem;line-height:1.7;color:var(--text-secondary);margin-bottom:14px}
+.ltree-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ltree-tags span{font-family:var(--font-mono);font-size:.58rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:var(--bg);color:var(--bc)}
+@media(max-width:1100px){
+  .ltree{overflow:visible;padding-top:0}
+  .ltree::before{width:340px;height:240px;top:-40px}
+  .ltree-kids{display:block;position:relative;margin-left:32px;border-left:2px solid var(--ltree-line);padding:0}
+  .ltree-kids::before{display:none}
+  .ltree-branch{display:block;position:relative;padding:20px 0 0}
+  .ltree>.ltree-branch{padding:0}
+  .ltree-kids>.ltree-branch::before{content:'';position:absolute;left:-2px;top:46px;width:26px;border-top:2px solid var(--ltree-line);height:0;border-radius:0}
+  .ltree-kids>.ltree-branch::after{display:none}
+  .ltree-node{display:flex;align-items:center;gap:14px;text-align:left;padding:12px;border:1px solid var(--border-hairline);border-radius:16px;background:var(--bg-surface);box-shadow:var(--shadow-sm);transition:box-shadow .35s var(--ease-expo),border-color .35s}
+  .ltree-node:hover,.ltree-node:focus,.ltree-node:focus-within{box-shadow:var(--shadow-lg);border-color:var(--bc)}
+  .ltree-head{display:flex;flex-direction:row;align-items:center;gap:14px;text-align:left;width:100%;min-width:0}
+  .ltree-photo{margin:0;width:58px;height:58px;flex-shrink:0}
+  .ltree-node.is-root .ltree-photo{width:72px;height:72px;border-width:3px}
+  .ltree-kids .ltree-kids .ltree-node .ltree-photo{width:58px;height:58px}
+  .ltree-kids .ltree-kids .ltree-node .ltree-head{min-width:0}
+  .ltree-info{flex:1;min-width:0}
+  .ltree-name{font-size:.98rem}
+  .ltree-crown{top:-12px;font-size:.95rem}
+  .ltree-detail{position:static;width:auto;margin:12px 2px 2px;padding:0 6px;opacity:1;visibility:visible;transform:none;box-shadow:none;background:transparent;border:none;display:none}
+  .ltree-node:hover .ltree-detail,.ltree-node:focus .ltree-detail,.ltree-node:focus-within .ltree-detail{display:block;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .ltree-node,.ltree-photo,.ltree-detail,.ltree-hint i{transition:none!important;animation:none!important}
+}
 /* ============ CLOSING ============ */
 .closing-card{background:var(--gradient-hero);color:#fff;border-radius:var(--r-3xl);padding:clamp(2.5rem,5.5vw,5rem) clamp(1.5rem,4vw,3.5rem);text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow-2xl)}
 .closing-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(59,130,246,.3),transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(245,158,11,.18),transparent 50%);pointer-events:none}
@@ -332,8 +473,6 @@ body.cursor-hover .cursor-ring{width:60px;height:60px;border-color:var(--amber-4
   :root{--sidebar-w:280px}
   .sp-4,.sp-5{grid-column:span 6}
   .sp-6,.sp-7,.sp-8{grid-column:span 12}
-  .leader-portrait-wide{grid-template-columns:1fr}
-  .leader-portrait-wide .leader-media{aspect-ratio:16/9}
 }
 @media(max-width:900px){
   html{scroll-padding-top:calc(var(--bar-h) + 14px)}
@@ -361,7 +500,6 @@ body.cursor-hover .cursor-ring{width:60px;height:60px;border-color:var(--amber-4
   .footer-grid{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
   .footer-legal{justify-content:center}
-  .leader-portrait-wide .leader-media{aspect-ratio:4/3}
 }
 @media(max-width:400px){.stats-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){
@@ -514,195 +652,290 @@ body.cursor-hover .cursor-ring{width:60px;height:60px;border-color:var(--amber-4
   </section>
   <div class="section-divider"></div>
 
-  <!-- THE COUNCIL — editorial bento -->
+  <!-- ELITE EDITORIAL IMAGE SECTION -->
+  <section class="lm-section" id="council-frames" aria-labelledby="lm-title">
+    <div class="lm-shell">
+      <header class="lm-head">
+        <p class="lm-kicker">The Council · In Frame</p>
+        <div class="lm-titlerow">
+          <h2 class="lm-title" id="lm-title">Twelve servant-leaders, <em>one mission.</em></h2>
+          <p class="lm-index">Frames 01 — 04 · Class of 2026</p>
+        </div>
+        <div class="lm-meta">
+          <span>Elected by their peers</span>
+          <span>378 students served</span>
+          <span>Mfangano Island, Kenya</span>
+          <a href="../media-gallery/imagegallery/image-gallery.html">View full gallery ↗</a>
+        </div>
+      </header>
+
+      <div class="lm-grid">
+        <figure class="lm-frame lm-feature lm-reveal">
+          <div class="lm-media" style="--ar:4/5">
+            <img
+              src="image/IMG-20251121-WA0206(1) (2).jpg"
+              alt="The 2026 student council of KE0274 PEFA Mfangano CYDC gathered together outdoors"
+              width="1200" height="1500" fetchpriority="high" decoding="async">
+            <span class="lm-tint" aria-hidden="true"></span>
+            <figcaption class="lm-cap lm-cap--overlay">
+              <span class="lm-num" aria-hidden="true">01</span>
+              <span class="lm-cap-text">United in service — the full council, elected 2026.</span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <div class="lm-side">
+          <figure class="lm-frame lm-reveal" style="--d:150ms">
+            <div class="lm-media" style="--ar:3/4;--op:50% 38%">
+              <img
+                src="image/20260417_121234.jpg"
+                alt="Students engaged in community service activity"
+                width="900" height="1200" loading="lazy" decoding="async">
+              <span class="lm-tint" aria-hidden="true"></span>
+            </div>
+            <figcaption class="lm-cap">
+              <span class="lm-num" aria-hidden="true">02</span>
+              <span class="lm-cap-text">Service in action — lifting our community.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="lm-frame lm-reveal" style="--d:300ms">
+            <div class="lm-media" style="--ar:1/1;--op:50% 45%">
+              <img
+                src="image/20260417_122010.png"
+                alt="Student leaders planning during a council meeting"
+                width="800" height="800" loading="lazy" decoding="async">
+              <span class="lm-tint" aria-hidden="true"></span>
+            </div>
+            <figcaption class="lm-cap">
+              <span class="lm-num" aria-hidden="true">03</span>
+              <span class="lm-cap-text">Planning with purpose — council at work.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <figure class="lm-frame lm-wide lm-reveal" style="--d:200ms">
+          <div class="lm-media" style="--ar:16/9;--op:50% 40%">
+            <img
+              src="image/20260417_121009.jpg"
+              alt="Students celebrating and connecting together"
+              width="1600" height="900" loading="lazy" decoding="async">
+            <span class="lm-tint" aria-hidden="true"></span>
+            <figcaption class="lm-cap lm-cap--overlay lm-cap--wide">
+              <span class="lm-num" aria-hidden="true">04</span>
+              <span class="lm-cap-text">Every voice heard, every gift honoured.</span>
+            </figcaption>
+          </div>
+        </figure>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var s = document.getElementById('council-frames');
+        if (!s) return;
+        s.setAttribute('data-lm', 'on');
+        var items = s.querySelectorAll('.lm-reveal');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) {
+          items.forEach(function (el) { el.classList.add('lm-in'); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('lm-in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        items.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+  </section>
+
+  <!-- THE COUNCIL — LEADERSHIP TREE -->
   <section class="section" id="council" aria-labelledby="council-title">
     <div class="container">
       <div class="reveal">
         <div class="section-eyebrow">The Council</div>
-        <h2 class="section-title" id="council-title">The <span class="italic">2026</span> Leadership Team</h2>
-        <p class="section-lede">Twelve voices, one calling. Each leader brings unique gifts — elected by their peers to serve 378 students with integrity, faith, and courage.</p>
+        <h2 class="section-title" id="council-title">The 2026 <span class="italic">Leadership Tree</span></h2>
+        <p class="section-lede">Twelve voices, one calling. Rooted in the President, the council branches into every ministry — each leader a unique limb elected to serve 378 students with integrity, faith, and courage.</p>
       </div>
 
-      <div class="bento reveal-stagger" id="councilGrid">
-        <!-- Row 1: President flagship (8) + Deputy (4) -->
-        <article class="b-card leader-card sp-8 b-dark leader-portrait-wide">
-          <div class="leader-media">
-            <span class="leader-rank flagship">The President</span>
-            <img src="image/20260417_122043.png" alt="Portrait of Stanley Okinyi" loading="lazy" decoding="async" onerror="this.style.display='none'">
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">01</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-crown"></i></div>
-            <h3 class="b-title">Stanley Okinyi</h3>
-            <div class="leader-role">The President</div>
-            <p class="quote">I serve because every voice on this island deserves to be heard.</p>
-            <p class="b-desc">The head of the student council. Stanley presides over all meetings, represents the student body in administrative discussions, and ensures that the vision of the council is executed effectively across every department.</p>
-            <div class="leader-meta"><span>Elected 2026</span><span class="dot">·</span><span>Flagship Role</span><span class="dot">·</span><span>Servant-Leader</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-4 b-amber">
-          <div class="leader-media">
-            <span class="leader-rank">02</span>
-            <img src="image/mercyemilia (1).png" alt="Portrait of Mercy Amelie" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Deputy President</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">02</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></div>
-            <h3 class="b-title">Mercy Amelie</h3>
-            <p class="b-desc">Mercy assists the President and steps in when the President is unavailable. She focuses on internal harmony within the council and oversees the implementation of council decisions with grace and precision.</p>
-            <div class="leader-meta"><span>Elected 2026</span><span class="dot">·</span><span>Harmony</span></div>
-          </div>
-        </article>
+      <div class="ltree-wrap reveal">
+        <p class="ltree-hint"><i class="fas fa-leaf" aria-hidden="true"></i><span>Hover or focus a leader to reveal their story</span></p>
 
-        <!-- Row 2: PM (5) + Welfare (4) + Environment (3) -->
-        <article class="b-card leader-card sp-5">
-          <div class="leader-media">
-            <span class="leader-rank">03</span>
-            <img src="image/20260417_122010.png" alt="Portrait of Thomas Odhiambo" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Prime Minister</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">03</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-sitemap"></i></div>
-            <h3 class="b-title">Thomas Odhiambo</h3>
-            <p class="b-desc">Chief coordinator of council activities. He ensures all departments work together and serves as the primary link between academic staff and student leaders.</p>
-            <div class="leader-meta"><span>Coordination</span><span class="dot">·</span><span>Bridge</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-4 b-dark">
-          <div class="leader-media">
-            <span class="leader-rank">04</span>
-            <img src="image/20260417_121234.jpg" alt="Portrait of Emanuel Isaac" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Welfare &amp; Protection</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">04</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></div>
-            <h3 class="b-title">Emanuel Isaac</h3>
-            <p class="b-desc">Dedicated to the safety and well-being of every child. He handles peer conflicts, reports safeguarding concerns to patrons, and ensures every student feels safe and valued.</p>
-            <div class="leader-meta"><span>Child Protection</span><span class="dot">·</span><span>Advocate</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-3 b-tint">
-          <div class="leader-media compact">
-            <span class="leader-rank">05</span>
-            <img src="image/20260417_122148.jpg" alt="Portrait of Blessing Carey" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Environment</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">05</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-leaf"></i></div>
-            <h3 class="b-title">Blessing Carey</h3>
-            <p class="b-desc">Leads the Green Initiative — tree planting days, the school garden project, and keeping our campus clean and eco-friendly.</p>
-            <div class="leader-meta"><span>Green Initiative</span></div>
-          </div>
-        </article>
+        <div class="ltree" role="list" aria-label="Student council leadership tree">
+          <!-- ROOT : THE PRESIDENT -->
+          <div class="ltree-branch">
+            <article class="ltree-node is-root" data-b="gold" tabindex="0" role="listitem" aria-label="Stanley Okinyi, The President">
+              <div class="ltree-head">
+                <div class="ltree-photo"><i class="fas fa-crown ltree-crown" aria-hidden="true"></i><img src="image/20260417_122043.png" alt="Portrait of Stanley Okinyi" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                <div class="ltree-info">
+                  <h3 class="ltree-name">Stanley Okinyi</h3>
+                  <p class="ltree-role">The President</p>
+                </div>
+              </div>
+              <div class="ltree-detail">
+                <p class="ltree-quote">I serve because every voice on this island deserves to be heard.</p>
+                <p class="ltree-desc">The head of the student council. Stanley presides over all meetings, represents the student body in administrative discussions, and ensures that the vision of the council is executed effectively across every department.</p>
+                <div class="ltree-tags"><span>Elected 2026</span><span>Flagship Role</span><span>Servant-Leader</span></div>
+              </div>
+            </article>
 
-        <!-- Row 3: Religious Leader flagship (7) + Sports (5) -->
-        <article class="b-card leader-card sp-7 b-dark leader-portrait-wide">
-          <div class="leader-media">
-            <span class="leader-rank flagship">06</span>
-            <img src="image/IMG-20251121-WA0206(1) (2).jpg" alt="Portrait of Cyprian Awiti" loading="lazy" decoding="async" onerror="this.style.display='none'">
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">06</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-cross"></i></div>
-            <h3 class="b-title">Cyprian Awiti</h3>
-            <div class="leader-role">Religious Leader</div>
-            <p class="quote">Leading hearts before leading hands.</p>
-            <p class="b-desc">Cyprian leads the student body in spiritual matters. He organizes chapel programs, leads the choir, and encourages moral uprightness and integrity among students — the spiritual anchor of our council.</p>
-            <div class="leader-meta"><span>Chapel Lead</span><span class="dot">·</span><span>Choir Director</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-5">
-          <div class="leader-media">
-            <span class="leader-rank">07</span>
-            <img src="image/20260417_121009.jpg" alt="Portrait of Rooney Odero" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Sports Captain</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">07</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-futbol"></i></div>
-            <h3 class="b-title">Rooney Odero</h3>
-            <p class="b-desc">Sports &amp; Games Captain. Manages equipment and organizes leagues — promoting physical fitness, teamwork, and fair play during inter-class and inter-school competitions.</p>
-            <div class="leader-meta"><span>Sports Captain</span><span class="dot">·</span><span>Teamwork</span></div>
-          </div>
-        </article>
+            <!-- MAIN LIMBS : DEPUTY + PRIME MINISTER -->
+            <div class="ltree-kids">
+              <!-- DEPUTY PRESIDENT -->
+              <div class="ltree-branch">
+                <article class="ltree-node" data-b="sky" tabindex="0" role="listitem" aria-label="Mercy Amelie, Deputy President">
+                  <div class="ltree-head">
+                    <div class="ltree-photo"><img src="image/mercyemilia (1).png" alt="Portrait of Mercy Amelie" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                    <div class="ltree-info">
+                      <h3 class="ltree-name">Mercy Amelie</h3>
+                      <p class="ltree-role">Deputy President</p>
+                    </div>
+                  </div>
+                  <div class="ltree-detail">
+                    <p class="ltree-desc">Mercy assists the President and steps in when the President is unavailable. She focuses on internal harmony within the council and oversees the implementation of council decisions with grace and precision.</p>
+                    <div class="ltree-tags"><span>Elected 2026</span><span>Harmony</span></div>
+                  </div>
+                </article>
 
-        <!-- Row 4: ICT (4) + Library (4) + Bell Ringer (4) -->
-        <article class="b-card leader-card sp-4 b-tint">
-          <div class="leader-media">
-            <span class="leader-rank">08</span>
-            <img src="image/20260417_122129.png" alt="Portrait of Mesharck Clinton" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">ICT Prefect</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">08</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></div>
-            <h3 class="b-title">Mesharck Clinton</h3>
-            <p class="b-desc">Assists in the computer lab ensuring rules are followed. Helps peers with basic coding and typing skills and manages the digital notice board.</p>
-            <div class="leader-meta"><span>Tech Lead</span><span class="dot">·</span><span>Coding Mentor</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-4">
-          <div class="leader-media">
-            <span class="leader-rank">09</span>
-            <img src="image/20260417_122139.jpg" alt="Portrait of Nephia Gracia" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Library Prefect</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">09</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-book-open"></i></div>
-            <h3 class="b-title">Nephia Gracia</h3>
-            <p class="b-desc">Maintains order in the library. Assists in issuing books, ensures silence is maintained for studying, and organizes the Reading Week campaigns.</p>
-            <div class="leader-meta"><span>Library Lead</span><span class="dot">·</span><span>Reading Week</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-4 b-amber">
-          <div class="leader-media">
-            <span class="leader-rank">10</span>
-            <img src="image/20260417_121831.jpg" alt="Portrait of Ivine Oketch" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Chief Bell Ringer</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">10</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-bell"></i></div>
-            <h3 class="b-title">Ivine Oketch</h3>
-            <p class="b-desc">Responsible for timekeeping. Rings the bell for class changes, meal times, and lights out — ensuring the daily schedule runs strictly on time.</p>
-            <div class="leader-meta"><span>Timekeeper</span><span class="dot">·</span><span>Punctuality</span></div>
-          </div>
-        </article>
+                <!-- DEPUTY BRANCHES -->
+                <div class="ltree-kids">
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="coral" data-pos="l up" tabindex="0" role="listitem" aria-label="Emanuel Isaac, Welfare and Protection">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_121234.jpg" alt="Portrait of Emanuel Isaac" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Emanuel Isaac</h3><p class="ltree-role">Welfare &amp; Protection</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Dedicated to the safety and well-being of every child. He handles peer conflicts, reports safeguarding concerns to patrons, and ensures every student feels safe and valued.</p>
+                        <div class="ltree-tags"><span>Child Protection</span><span>Advocate</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="emerald" data-pos="up" tabindex="0" role="listitem" aria-label="Blessing Carey, Environment">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_122148.jpg" alt="Portrait of Blessing Carey" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Blessing Carey</h3><p class="ltree-role">Environment</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Leads the Green Initiative — tree planting days, the school garden project, and keeping our campus clean and eco-friendly.</p>
+                        <div class="ltree-tags"><span>Green Initiative</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="orange" data-pos="up" tabindex="0" role="listitem" aria-label="Rooney Odero, Sports Captain">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_121009.jpg" alt="Portrait of Rooney Odero" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Rooney Odero</h3><p class="ltree-role">Sports Captain</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Sports &amp; Games Captain. Manages equipment and organizes leagues — promoting physical fitness, teamwork, and fair play during inter-class and inter-school competitions.</p>
+                        <div class="ltree-tags"><span>Sports Captain</span><span>Teamwork</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="teal" data-pos="up" tabindex="0" role="listitem" aria-label="Blessing Achieng, Language Prefect">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_122148.jpg" alt="Portrait of Blessing Achieng" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Blessing Achieng</h3><p class="ltree-role">Language Prefect</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Language &amp; Communication Prefect. Upholds the center's code of communication and has outstanding skill in language use within the educational environment — a voice of clarity and respect.</p>
+                        <div class="ltree-tags"><span>Language Lead</span><span>Clarity</span></div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
 
-        <!-- Row 5: Media (6) + Language (6) -->
-        <article class="b-card leader-card sp-6 b-dark">
-          <div class="leader-media">
-            <span class="leader-rank">11</span>
-            <img src="image/20260417_121252.jpg" alt="Portrait of Synaider Achieng" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Media &amp; Comms</span>
+              <!-- PRIME MINISTER -->
+              <div class="ltree-branch">
+                <article class="ltree-node" data-b="royal" tabindex="0" role="listitem" aria-label="Thomas Odhiambo, Prime Minister">
+                  <div class="ltree-head">
+                    <div class="ltree-photo"><img src="image/20260417_122010.png" alt="Portrait of Thomas Odhiambo" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                    <div class="ltree-info">
+                      <h3 class="ltree-name">Thomas Odhiambo</h3>
+                      <p class="ltree-role">Prime Minister</p>
+                    </div>
+                  </div>
+                  <div class="ltree-detail">
+                    <p class="ltree-desc">Chief coordinator of council activities. He ensures all departments work together and serves as the primary link between academic staff and student leaders.</p>
+                    <div class="ltree-tags"><span>Coordination</span><span>Bridge</span></div>
+                  </div>
+                </article>
+
+                <!-- PRIME MINISTER BRANCHES -->
+                <div class="ltree-kids">
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="amber" data-pos="up" tabindex="0" role="listitem" aria-label="Cyprian Awiti, Religious Leader">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/IMG-20251121-WA0206(1) (2).jpg" alt="Portrait of Cyprian Awiti" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Cyprian Awiti</h3><p class="ltree-role">Religious Leader</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-quote">Leading hearts before leading hands.</p>
+                        <p class="ltree-desc">Cyprian leads the student body in spiritual matters. He organizes chapel programs, leads the choir, and encourages moral uprightness and integrity among students — the spiritual anchor of our council.</p>
+                        <div class="ltree-tags"><span>Chapel Lead</span><span>Choir Director</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="cyan" data-pos="up" tabindex="0" role="listitem" aria-label="Mesharck Clinton, ICT Prefect">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_122129.png" alt="Portrait of Mesharck Clinton" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Mesharck Clinton</h3><p class="ltree-role">ICT Prefect</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Assists in the computer lab ensuring rules are followed. Helps peers with basic coding and typing skills and manages the digital notice board.</p>
+                        <div class="ltree-tags"><span>Tech Lead</span><span>Coding Mentor</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="violet" data-pos="up" tabindex="0" role="listitem" aria-label="Nephia Gracia, Library Prefect">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_122139.jpg" alt="Portrait of Nephia Gracia" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Nephia Gracia</h3><p class="ltree-role">Library Prefect</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Maintains order in the library. Assists in issuing books, ensures silence is maintained for studying, and organizes the Reading Week campaigns.</p>
+                        <div class="ltree-tags"><span>Library Lead</span><span>Reading Week</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="lime" data-pos="up" tabindex="0" role="listitem" aria-label="Ivine Oketch, Chief Bell Ringer">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_121831.jpg" alt="Portrait of Ivine Oketch" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Ivine Oketch</h3><p class="ltree-role">Chief Bell Ringer</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Responsible for timekeeping. Rings the bell for class changes, meal times, and lights out — ensuring the daily schedule runs strictly on time.</p>
+                        <div class="ltree-tags"><span>Timekeeper</span><span>Punctuality</span></div>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="ltree-branch">
+                    <article class="ltree-node" data-b="rose" data-pos="r up" tabindex="0" role="listitem" aria-label="Synaider Achieng, Media and Communications">
+                      <div class="ltree-head">
+                        <div class="ltree-photo"><img src="image/20260417_121252.jpg" alt="Portrait of Synaider Achieng" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="ltree-info"><h3 class="ltree-name">Synaider Achieng</h3><p class="ltree-role">Media &amp; Comms</p></div>
+                      </div>
+                      <div class="ltree-detail">
+                        <p class="ltree-desc">Media &amp; Communications. Manages the center's notice boards, social media updates, and event documentation — ensuring transparent communication between administration and students.</p>
+                        <div class="ltree-tags"><span>Media Lead</span><span>Voice of Council</span></div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="leader-card-body">
-            <span class="b-index">11</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-camera"></i></div>
-            <h3 class="b-title">Synaider Achieng</h3>
-            <p class="b-desc">Media &amp; Communications. Manages the center's notice boards, social media updates, and event documentation — ensuring transparent communication between administration and students.</p>
-            <div class="leader-meta"><span>Media Lead</span><span class="dot">·</span><span>Voice of Council</span></div>
-          </div>
-        </article>
-        <article class="b-card leader-card sp-6 b-tint">
-          <div class="leader-media">
-            <span class="leader-rank">12</span>
-            <img src="image/20260417_122148.jpg" alt="Portrait of Blessing Achieng" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <span class="leader-role-badge">Language Prefect</span>
-          </div>
-          <div class="leader-card-body">
-            <span class="b-index">12</span>
-            <div class="b-icon" aria-hidden="true"><i class="fas fa-language"></i></div>
-            <h3 class="b-title">Blessing Achieng</h3>
-            <p class="b-desc">Language &amp; Communication Prefect. Upholds the center's code of communication and has outstanding skill in language use within the educational environment — a voice of clarity and respect.</p>
-            <div class="leader-meta"><span>Language Lead</span><span class="dot">·</span><span>Clarity</span></div>
-          </div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -804,14 +1037,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     let mx=0,my=0,rx=0,ry=0;
     addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;},{passive:true});
     (function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(loop);})();
-    $$('a,button,.nav-link,.b-card,.leader-card,.dropdown-link,input').forEach(el=>{
+    $$('a,button,.nav-link,.b-card,.ltree-node,.dropdown-link,input').forEach(el=>{
       el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
     });
   }
 
   /* Spotlight on cards */
-  if(canHover&&!reduced){$$('.spot,.leader-card').forEach(c=>{
+  if(canHover&&!reduced){$$('.spot').forEach(c=>{
     c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();
       c.style.setProperty('--sx',(e.clientX-r.left)+'px');c.style.setProperty('--sy',(e.clientY-r.top)+'px');},{passive:true});
   });}
